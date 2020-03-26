@@ -1,0 +1,106 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Gerenciamento de cursos</li>
+  </ol>
+</nav>
+<div class="container">
+  <div class="card list-car">
+    <h5 class="card-header">Lista de Cursos</h5>
+    <div class="card-body">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Responsavel</th>
+              <th scope="col">Horas Semanais</th>
+              <th scope="col">Duração</th>
+              <th scope="col">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let curso of cursos">
+              <td>{{curso.nomeCurso}}</td>
+              <td>{{curso.responsavelCurso}}</td>
+              <td>{{curso.horasSemanaisCurso}}</td>
+              <td>{{curso.duracaoCurso}}</td>
+              <td>{{curso.descricaoCurso}}</td>
+              <td>
+                <button type="button" class="btn btn-warning btn-sm" (click)="editCurso(curso)">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteCurso(curso)">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    </div>
+
+    <!-- <div class="card list-car">
+      <h5 class="card-header">Lista de Aulas</h5>
+      <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Horario</th>
+                <th scope="col">Id do Curso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let aula of aulas">
+                <td>{{aula.idAula}}</td>
+                <td>{{aula.nomeAula}}</td>
+                <td>{{aula.horarioAula}}</td>
+                <td>{{aula.idCurso}}</td>
+                
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div> -->
+    <div class="container">
+    <div class="card add-car">
+      <h5 class="card-header">Adicionar/Atualizar Curso</h5>
+      <div class="card-body">
+          <form id="add-form" (ngSubmit)="f.form.valid && saveCurso(f)" #f="ngForm" novalidate>
+            <input type="hidden" [(ngModel)]="curso.idCurso" id="idCurso" name="idCurso" #nomeCurso="ngModel" />
+            <div class="form-group">
+                <label for="nomeCurso">Nome</label>
+                <input type="text" [(ngModel)]="curso.nomeCurso" id="nomeCurso" name="nomeCurso" #nomeCurso="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nomeCurso.invalid }" placeholder="Digite o nome do Curso">
+                <div *ngIf="f.submitted && nomeCurso.invalid" class="invalid-feedback">
+                    <div *ngIf="nomeCurso.errors.required">Nome é obrigatória</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="responsavelCurso">Responsavel</label>
+                <input type="text" [(ngModel)]="curso.responsavelCurso" id="responsavelCurso" name="responsavelCurso" #responsavelCurso="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && responsavelCurso.invalid }" placeholder="Digite o responsavel pelo curso">
+                <div *ngIf="f.submitted && responsavelCurso.invalid" class="invalid-feedback">
+                    <div *ngIf="responsavelCurso.errors.required">responsavelCurso é obrigatório</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="horasSemanaisCurso">Horas Semanais</label>
+                <input type="text" [(ngModel)]="curso.horasSemanaisCurso" id="horasSemanaisCurso" name="horasSemanaisCurso" #horasSemanaisCurso="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && horasSemanaisCurso.invalid }" placeholder="Digite as horas semanais do curso">
+               <div *ngIf="f.submitted && horasSemanaisCurso.invalid" class="invalid-feedback">
+                  <div *ngIf="horasSemanaisCurso.errors.required">horasSemanaisCurso é obrigatório</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="duracaoCurso">Duração</label>
+              <input type="text" [(ngModel)]="curso.duracaoCurso" id="duracaoCurso" name="duracaoCurso" #duracaoCurso="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && duracaoCurso.invalid }" placeholder="Digite a duracao do curso">
+             <div *ngIf="f.submitted && duracaoCurso.invalid" class="invalid-feedback">
+                <div *ngIf="horasSemanaisCurso.errors.required">horasSemanaisCurso é obrigatório</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descricaoCurso">Descrição</label>
+            <input type="text" [(ngModel)]="curso.descricaoCurso" id="descricaoCurso" name="descricaoCurso" #descricaoCurso="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && descricaoCurso.invalid }" placeholder="Digite a descricao do curso">
+           <div *ngIf="f.submitted && descricaoCurso.invalid" class="invalid-feedback">
+              <div *ngIf="descricaoCurso.errors.required">horasSemanaisCurso é obrigatório</div>
+          </div>
+        </div>
+            <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+            <button type="reset" class="btn btn-secondary btn-add-car" (click)="cleanForm(f)">Cancelar</button>
+          </form>
+      </div>
+      
